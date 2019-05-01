@@ -1,25 +1,28 @@
-matrix:
-  include:
-    - language: node_js
-      node_js:
-        - "10.15.2"
-      dist: trusty
-      sudo: false
+language: node_js
+node_js:
+  - "10.15.2"
+dist: trusty
+sudo: false
 
-      addons:
-        chrome: stable
+addons:
+  chrome: stable
 
-      branches:
-        only:
-          - master
+#branches:
+#  only:
+#    - master
 
-      cache:
-        directories:
-          - /angular/node_modules
+cache: npm
 
-      script:
-        - cd angular
-        - npm ci
-        - npm run lint
-        - npm run test
-        - npm run build
+script:
+  - cd angular
+  - npm ci
+  - npm run lint
+  - npm run test
+  - npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master
