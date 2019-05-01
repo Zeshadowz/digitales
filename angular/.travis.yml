@@ -4,6 +4,9 @@ node_js:
 dist: trusty
 sudo: false
 
+services:
+  - docker
+
 branches:
   only:
     - master
