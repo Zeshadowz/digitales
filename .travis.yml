@@ -1,28 +1,22 @@
 language: node_js
 node_js:
-  - "10.15.2"
-dist: trusty
-sudo: false
-
+  - 10.15.2
+services:
+  - docker
 addons:
   chrome: stable
-
-#branches:
-#  only:
-#    - master
-
-cache: npm
-
+before_install:
+  - google-chrome-stable --headless -disable-gpu --remote-debugging-port=9876 http://localhost &
 script:
   - cd angular
   - npm ci
   - npm run lint
   - npm run test
   - npm run build
-
 deploy:
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   on:
     branch: master
+    tags: false
