@@ -1,0 +1,25 @@
+matrix:
+  include:
+    - language: node_js
+      node_js:
+        - "10.15.2"
+      dist: trusty
+      sudo: false
+
+      addons:
+        chrome: stable
+
+      branches:
+        only:
+          - master
+
+      cache:
+        directories:
+          - /angular/node_modules
+
+      script:
+        - cd angular
+        - npm ci
+        - npm run lint
+        - npm run ci-test
+        - npm run build
